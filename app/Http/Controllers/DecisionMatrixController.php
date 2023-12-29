@@ -54,7 +54,7 @@ class DecisionMatrixController extends Controller
         $kriteria = Kriteria::all();
 
         if ($alternatif->isEmpty()) {
-            return redirect()->route('some.route')->with('error', 'Tidak ada alternatif yang ditemukan.');
+            return redirect()->route('decision-matrix.index')->with('error', 'Tidak ada alternatif yang ditemukan.');
         }
 
         return view('waspas.createDecisionMatrix', compact('alternatif', 'kriteria'));

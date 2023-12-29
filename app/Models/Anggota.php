@@ -2,19 +2,18 @@
 
 namespace App\Models;
 
-use App\Models\DecisionMatrix;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Alternatif extends Model
+class Anggota extends Model
 {
-    protected $table = "table_alternatif";
+    protected $table = "anggotas";
     protected $primaryKey = 'id';
 
     protected $fillable = [
         'id',
         'kode_alternatif',
-        'nama_alternatif',
+        'nama_anggota',
         'luas_tanah',
     ];
 
