@@ -14,7 +14,7 @@
             </svg>
          </button>
          <div href="#" class="flex ml-2 md:mr-24">
-          <span class="self-center text-xl md:ml-12 font-semibold sm:text-2xl whitespace-nowrap text-primary dark:text-purple">Sistem Pendukung Keputusan - WASPAS</span>
+          <span class="self-center text-xl md:ml-12 font-semibold sm:text-2xl whitespace-nowrap text-primary dark:text-purple">SPK-WASPAS</span>
          </div>
       </div>
       <div class="flex items-center">

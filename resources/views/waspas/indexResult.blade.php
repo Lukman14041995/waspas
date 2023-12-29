@@ -17,7 +17,7 @@
                             Ranking
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Alternatif
+                            Kelompok
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Score

@@ -15,7 +15,7 @@
             <table class="w-full text-sm">
                 <thead class="text-xs text-primary dark:text-purple uppercase bg-purple dark:bg-table-head">
                     <tr>
-                        <th scope="col" class="px-6 py-3">Alternatif</th>
+                        <th scope="col" class="px-6 py-3">Kelompok</th>
                         @foreach($kriteriaNames as $kriteriaId => $kriteriaName)
                         <th  scope="col" class="px-6 py-3">{{ $kriteriaName }}</th>
                         @endforeach

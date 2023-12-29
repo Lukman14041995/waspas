@@ -67,14 +67,14 @@
         <div class="row">
             <div class="flex justify-between">
                 <div class="pull-left px-6 py-2">
-                    <div class="text-primary dark:text-purple m-4 font-semibold text-2xl tracking-wide">ALTERNATIF</div>
+                    <div class="text-primary dark:text-purple m-4 font-semibold text-2xl tracking-wide">KELOMPOK</div>
                 </div>
 
                 <div class="right-8 mt-2">
                     <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
                         class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                         type="button">
-                        Tambah Alternatif
+                        Tambah Kelompok Tani Baru
                     </button>
                     <div id="crud-modal" tabindex="-1" aria-hidden="true"
                         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -83,7 +83,7 @@
                                 <div
                                     class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                                        Create New Alternatif
+                                        Create New Kelompok
                                     </h3>
                                     <button type="button"
                                         class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -113,7 +113,7 @@
                                         <div class="col-span-2">
                                             <label for="nama_alternatif"
                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
-                                                Alternatif</label>
+                                                Kelompok</label>
                                             <input type="text" name="nama_alternatif" id="nama_alternatif"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                         </div>
@@ -191,7 +191,7 @@
                             No SK
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Nama Alternatif
+                            Nama Kelompok
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Nama Anggota
@@ -346,7 +346,7 @@
                                                         </svg>
                                                         <h3
                                                             class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                                                            Apakah anda yakin menghapus alternatif ini ? </h3>
+                                                            Apakah anda yakin menghapus Kelompok ini ? </h3>
                                                         <form
                                                             action="{{ route('data-alternatif.destroy', $Alternatif->id) }}"
                                                             method="POST">
