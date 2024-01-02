@@ -23,6 +23,10 @@ class Alternatif extends Model
     {
         return $this->hasMany(DecisionMatrix::class, 'id_alternatif', 'id');
     }
+    public function hasAnggota()
+    {
+        return $this->hasMany(Anggota::class, 'kode_alternatif');
+    }
 
     public function isUsed()
     {

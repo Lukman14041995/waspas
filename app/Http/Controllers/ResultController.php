@@ -43,7 +43,8 @@ class ResultController extends Controller
         $ranking = array_keys($waspasScores);
 
         $alternatifNames = Alternatif::pluck('nama_alternatif', 'id')->toArray();
+        $alternatifCodes = Alternatif::pluck('kode_alternatif')->toArray();
 
-        return view('waspas.indexResult', compact('waspasScores', 'ranking', 'alternatifNames'));
+        return view('waspas.indexResult', compact('waspasScores', 'ranking', 'alternatifNames', 'alternatifCodes'));
     }
 }
