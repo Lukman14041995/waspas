@@ -10,12 +10,8 @@ class Kriteria extends Model
     protected $table = "kriteria";
     protected $primaryKey = 'id';
 
-    protected $fillable = [
-        'id',
-        'nama_kriteria',
-        'bobot_kriteria',
-        'jenis_kriteria',
-    ];
+    protected $fillable = ['kode_kriteria', 'nama_kriteria', 'bobot_kriteria', 'jenis_kriteria', 'karakter_kriteria'];
+
 
     public function decision_matrix()
     {

@@ -14,6 +14,7 @@ class Alternatif extends Model
     protected $fillable = [
         'id',
         'kode_alternatif',
+        'no_sk',
         'nama_alternatif',
         'luas_tanah',
     ];

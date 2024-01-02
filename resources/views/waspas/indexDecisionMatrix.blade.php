@@ -82,7 +82,6 @@
                                                     <span class="sr-only">Close modal</span>
                                                 </button>
                                             </div>
-                                            <!-- Modal body -->
                                              <form class="p-4 md:p-5" method="post" action="{{ route('decision-matrix.update', $alternatifId) }}">
                                                 @csrf
                                                 @method('PUT')

@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Alternatif;
 use App\Models\Anggota;
+use App\Models\ChildKriteria;
+use App\Models\ValueKriteria;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use DB;
 
 class AlternatifController extends Controller
@@ -15,9 +18,21 @@ class AlternatifController extends Controller
     public function index()
     {
         $newCode = $this->generateUniqueCode();
+
         $alternatif = Alternatif::orderBy('id', 'asc')->paginate(5);
+        // Log::info('Data alternatif berhasil dimuat'); // Pesan log ditambahkan di sini
         return view('alternatif.indexAlternatif', compact('alternatif', 'newCode'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
+    public function getdata()
+    {
+        $newCode = $this->generateUniqueCode();
+
+        $alternatif = Alternatif::all();
+        // dd($alternatif);
+        // Log::info('Data alternatif berhasil dimuat'); // Pesan log ditambahkan di sini
+        return view('alternatif.getKelompok', compact('alternatif', 'newCode'));
+    }
+
 
     private function generateUniqueCode()
     {
@@ -50,8 +65,8 @@ class AlternatifController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
-            'no_sk' => 'required',
             'nama_alternatif' => 'required',
             'total_luas_tanah' => 'required|numeric',
             'nama_anggota.*' => 'required',
@@ -59,34 +74,127 @@ class AlternatifController extends Controller
         ]);
 
         $no_sk = $request->no_sk;
+        $kode_alternatif = $request->kode_kelompok;
         $nama_alternatif = $request->nama_alternatif;
         $total_luas_tanah = $request->total_luas_tanah;
         $nama_anggota = $request->nama_anggota;
         $luas_tanah = $request->luas_tanah;
+        $kode_kriteria = $request->kode_kriteria;
+        $karakter = $request->karakter_kriteria;
+        $id_opsi = $request->id_opsi;
+        $value_Kriteria = $request->value_kriteria;
 
         // Simpan data anggota
-        $anggotaData = [];
-        foreach ($nama_anggota as $key => $nama) {
-            $anggotaData[] = [
-                'kode_alternatif' => $no_sk,
-                'nama_anggota' => $nama,
-                'luas_tanah' => $luas_tanah[$key],
-            ];
+        if ($kode_kriteria == '') {
+            $anggotaData = [];
+            foreach ($nama_anggota as $key => $nama) {
+                $anggotaData[] = [
+                    'kode_alternatif' => $kode_alternatif,
+                    'no_sk' => $no_sk,
+                    'nama_anggota' => $nama,
+                    'luas_tanah' => $luas_tanah[$key],
+                ];
+            }
+
+            Anggota::insert($anggotaData);
+
+            // Simpan atau perbarui data alternatif
+            Alternatif::updateOrCreate(
+                ['kode_alternatif' => $kode_alternatif],
+                [
+                    'no_sk' => $no_sk,
+                    'nama_alternatif' => $nama_alternatif,
+                    'luas_tanah' => $total_luas_tanah,
+                ]
+            );
+        } else {
+            $anggotaData = [];
+            foreach ($nama_anggota as $key => $nama) {
+                $anggotaData[] = [
+                    'kode_alternatif' => $kode_alternatif,
+                    'no_sk' => $no_sk,
+                    'nama_anggota' => $nama,
+                    'luas_tanah' => $luas_tanah[$key],
+                ];
+            }
+
+            Anggota::insert($anggotaData);
+
+            // Simpan atau perbarui data alternatif
+            Alternatif::updateOrCreate(
+                [
+                    'kode_alternatif' => $kode_alternatif,
+                    'no_sk' => $no_sk,
+                    'nama_alternatif' => $nama_alternatif,
+                    'luas_tanah' => $total_luas_tanah,
+                ],
+                [
+                    'no_sk' => $no_sk,
+                    'nama_alternatif' => $nama_alternatif,
+                    'luas_tanah' => $total_luas_tanah,
+                ]
+            );
+
+            // Simpan data kriteria berdasarkan karakter
+            // dd($karakter);
+            foreach ($karakter as $kar => $valuekarakter) {
+                if ($valuekarakter == 1) {
+                    $value_Kriteria = [];
+
+                    foreach ($kode_kriteria as $key => $kode) {
+                        $jawaban = isset($value_Kriteria[$key]['jawaban']) ? $value_Kriteria[$key]['jawaban'] : '';
+
+                        // Memeriksa apakah data sudah ada sebelumnya
+                        $existingData = ValueKriteria::where([
+                            'kode_alternatif' => $kode_alternatif,
+                            'kode_kriteria' => $kode,
+                        ])->first();
+
+                        if (!$existingData) {
+                            $value_Kriteria[] = [
+                                'jawaban' => empty($jawaban) ? "Belum diisi" : $jawaban,
+                                'skor' => empty($jawaban) ? "0" : "10",
+                                'kode_kriteria' => $kode,
+                                'kode_alternatif' => $kode_alternatif,
+                            ];
+                        }
+                    }
+
+                    ValueKriteria::insert($value_Kriteria);
+                } elseif ($valuekarakter == 2) {
+                    $id_opsiData = [];
+
+                    foreach ($id_opsi as $key => $value) {
+                        // Memeriksa apakah data sudah ada sebelumnya
+                        $existingData = ValueKriteria::where([
+                            'kode_alternatif' => $kode_alternatif,
+                            'kode_kriteria' => $kode_kriteria[$key],
+                            'jawaban' => $value,
+                        ])->first();
+
+                        if (!$existingData) {
+                            $skors = ChildKriteria::where('id', $value)->first();
+                            $id_opsiData[] = [
+                                'jawaban' => $value,
+                                'skor' => $skors->skor,
+                                'kode_kriteria' => $kode_kriteria[$key],
+                                'kode_alternatif' => $kode_alternatif,
+                            ];
+                        }
+                    }
+
+                    ValueKriteria::insert($id_opsiData);
+                }
+            }
         }
 
-        Anggota::insert($anggotaData);
-
-        // Simpan atau perbarui data alternatif
-        Alternatif::updateOrCreate(
-            ['kode_alternatif' => $no_sk],
-            [
-                'nama_alternatif' => $nama_alternatif,
-                'luas_tanah' => $total_luas_tanah,
-            ]
-        );
+        // dd($karakter);
 
 
-        return redirect()->route('data-alternatif.index')->with('success', 'Alternatif Berhasil Ditambahkan');
+
+
+
+        return redirect()->route('getdata')->with('success', 'Alternatif Berhasil Ditambahkan');
     }
 
     /**

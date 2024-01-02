@@ -67,10 +67,17 @@
         <div class="row">
             <div class="flex justify-between">
                 <div class="px-6 py-2">
-                    <div class="text-primary dark:text-purple m-4 font-semibold text-2xl tracking-wide">KRITERIA</div>
+                    <div class="text-primary dark:text-purple m-4 font-semibold text-2xl tracking-wide">OPSI KRITERIA</div>
                 </div>
 
                 <div class="right-8 mt-2">
+                    <div class="flex space-x-4">
+                        {{-- <button class="flex-1 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" type="button">
+                            Kembali
+                        </button> --}}
+                        <a href="{{route('data-kriteria.index')}}" class="flex-1 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                            Kembali
+                        </a>
                     <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
                         class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                         type="button">
@@ -97,7 +104,7 @@
                                     </button>
                                 </div>
                                 <!-- Modal body -->
-                                <form class="p-4 md:p-5" method="post" action="{{ route('data-kriteria.store') }}"
+                                <form class="p-4 md:p-5" method="post" action="{{ route('Inputopsi') }}"
                                     id="myForm" enctype="multipart/form-data">
                                     @csrf
                                     <div class="grid gap-4 mb-4 grid-cols-2">
@@ -106,47 +113,9 @@
                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kode
                                                 Kriteria</label>
                                             <input type="text" name="kode_kriteria" id="kode_kriteria"
-                                                value="{{ $newCode }}"
+                                                value="{{$kode}}"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 readonly>
-                                        </div>
-                                        <div class="col-span-2">
-                                            <label for="nama_kriteria"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
-                                                Kriteria</label>
-                                            <input type="text" name="nama_kriteria" id="nama_kriteria"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                        </div>
-                                        <div class="col-span-2 sm:col-span-1">
-                                            <label for="bobot_kriteria"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bobot
-                                                Kriteria</label>
-                                            <input type="text" name="bobot_kriteria" id="bobot_kriteria"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                        </div>
-                                        <div class="col-span-2 sm:col-span-1">
-                                            <label for="jenis_kriteria"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis
-                                                Kriteria</label>
-                                            <select id="jenis_kriteria" name="jenis_kriteria"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                                <option selected="">Pilih jenis kriteria</option>
-                                                <option value="benefit">Benefit</option>
-                                                <option value="cost">Cost</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="grid gap-4 mb-4 grid-cols-2">
-                                        <div class="col-span-2">
-                                            <label for="karakter_kriteria"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Karakter
-                                                Kriteria</label>
-                                            <select id="karakter_kriteria" name="karakter_kriteria"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                                <option disabled selected="">Pilih Karakter kriteria</option>
-                                                <option value="1">Typing</option>
-                                                <option value="2">Opsi</option>
-                                            </select>
                                         </div>
                                     </div>
                                     <div id="input-container">
@@ -196,6 +165,7 @@
                             </div>
                         </div>
                     </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -210,28 +180,21 @@
                             Kode Kriteria
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Nama Kriteria
+                            Jawaban
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Bobot Kriteria
+                            Skor
                         </th>
-                        <th scope="col" class="px-6 py-3">
-                            Jenis Kriteria
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Karakter Kriteria
-                        </th>
+                        
                         <th scope="col" class="px-6 py-3">
                             Action
                         </th>
-                        {{-- <th scope="col" class="px-6 py-3">
-                        Action
-                    </th> --}}
+                        
                     </tr>
                 </thead>
 
                 <tbody class="text-xs md:text-base">
-                    @if ($kriteria->isEmpty())
+                    @if ($childKriteria->isEmpty())
                         <tr
                             class="bg-gray-100 dark:bg-primary border border-primary dark:border-purple text-primary dark:text-purple">
                             <td colspan="6" class="dark:bg-primary text-center py-4 text-primary dark:text-purple">
@@ -239,7 +202,7 @@
                             </td>
                         </tr>
                     @else
-                        @foreach ($kriteria as $Kriteria)
+                        @foreach ($childKriteria as $Kriteria)
                             <tr
                                 class="bg-gray-100 dark:bg-primary border-primary dark:border-purple text-primary dark:text-purple">
                                 <td scope="row" class="text-center py-4 whitespace-nowrap dark:text-white">
@@ -249,22 +212,12 @@
                                     {{ $Kriteria->kode_kriteria }}
                                 </td>
                                 <td class="text-center py-4">
-                                    {{ $Kriteria->nama_kriteria }}
+                                    {{ $Kriteria->jawaban }}
                                 </td>
                                 <td class="text-center py-4">
-                                    {{ $Kriteria->bobot_kriteria }}
+                                    {{ $Kriteria->skor }}
                                 </td>
-                                <td class="text-center py-4">
-                                    {{ $Kriteria->jenis_kriteria }}
-                                </td>
-
-                                <td class="text-center py-4">
-                                    @if ($Kriteria->karakter_kriteria == 1)
-                                        <p>Typing</p>
-                                    @else
-                                        <p>Opsi</p>
-                                    @endif
-                                </td>
+                                
                                 <td class="py-4">
                                     <div class="md:flex justify-around">
                                         <div class="flex items-center">
@@ -282,7 +235,7 @@
                                                             class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                                                             <h3
                                                                 class="text-lg font-semibold text-gray-900 dark:text-white">
-                                                                Edit Kriteria
+                                                                Edit OpsiKriteria
                                                             </h3>
                                                             <button type="button"
                                                                 class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -299,62 +252,32 @@
                                                         </div>
                                                         <!-- Modal body -->
                                                         <form class="p-4 md:p-5" method="post"
-                                                            action="{{ route('data-kriteria.update', $Kriteria->id) }}"
+                                                            action="{{ route('updateopsi') }}"
                                                             id="myForm" enctype="multipart/form-data">
                                                             @csrf
-                                                            @method('PUT')
+                                                            <input type="hidden" name="kode_kriteria" value="{{$Kriteria->kode_kriteria}}">
+                                                            <input type="hidden" name="id" value="{{$Kriteria->id}}">
                                                             <div class="grid gap-4 mb-4 grid-cols-2">
                                                                 <div class="col-span-2">
-                                                                    <label for="nama_kriteria"
-                                                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
-                                                                        Kriteria</label>
-                                                                    <input type="text" name="nama_kriteria"
-                                                                        id="nama_kriteria"
-                                                                        value="{{ $Kriteria->nama_kriteria }}"
+                                                                    <label for="jawaban"
+                                                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jawaban
+                                                                        </label>
+                                                                    <input type="text" name="jawaban"
+                                                                        id="jawaban"
+                                                                        value="{{ $Kriteria->jawaban }}"
                                                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                                                 </div>
-                                                                <div class="col-span-2 sm:col-span-1">
-                                                                    <label for="bobot_kriteria"
-                                                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bobot
-                                                                        Kriteria</label>
-                                                                    <input type="text" name="bobot_kriteria"
-                                                                        id="bobot_kriteria"
-                                                                        value="{{ $Kriteria->bobot_kriteria }}"
+                                                                <div class="col-span-2">
+                                                                    <label for="skor"
+                                                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Skor
+                                                                        </label>
+                                                                    <input type="text" name="skor"
+                                                                        id="skor"
+                                                                        value="{{ $Kriteria->skor }}"
                                                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                                                 </div>
-                                                                <div class="col-span-2 sm:col-span-1">
-                                                                    <label for="jenis_kriteria"
-                                                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis
-                                                                        Kriteria</label>
-                                                                    <select id="jenis_kriteria" name="jenis_kriteria"
-                                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                                                        <option selected="">Pilih jenis kriteria
-                                                                        </option>
-                                                                        <option value="benefit"
-                                                                            {{ $Kriteria->jenis_kriteria === 'benefit' ? 'selected' : '' }}>
-                                                                            Benefit</option>
-                                                                        <option value="cost"
-                                                                            {{ $Kriteria->jenis_kriteria === 'cost' ? 'selected' : '' }}>
-                                                                            Cost</option>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="col-span-2 sm:col-span-1">
-                                                                    <label for="karakter_kriteria"
-                                                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Karakter
-                                                                        Kriteria</label>
-                                                                    <select id="karakter_kriteria"
-                                                                        name="karakter_kriteria"
-                                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                                                        <option selected disabled>Pilih Karakter kriteria
-                                                                        </option>
-                                                                        <option value="1"
-                                                                            {{ old('karakter_kriteria', $Kriteria->karakter_kriteria) == '1' ? 'selected' : '' }}>
-                                                                            Typing</option>
-                                                                        <option value="2"
-                                                                            {{ old('karakter_kriteria', $Kriteria->karakter_kriteria) == '2' ? 'selected' : '' }}>
-                                                                            Opsi</option>
-                                                                    </select>
-                                                                </div>
+                                                                
+                                                                
 
 
                                                             </div>
@@ -375,20 +298,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        @if ($Kriteria->karakter_kriteria == 2)
-                                            <div class="flex items-center">
-                                                <form action="{{ route('opsi') }}" method="post">
-                                                    @csrf
-                                                    <div class="flex justify-center">
-                                                        <input type="hidden" name="kode_kriteria" value="{{$Kriteria->kode_kriteria}}">
-                                                        <button type="submit"
-                                                            class="text-white bg-yellow-600 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:focus:ring-yellow-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center delete-entry">
-                                                            Opsi
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                        @endif
-                                        @if ($Kriteria->nama_kriteria != 'Luas Tanah' && $Kriteria->nama_kriteria != 'No SK')
+                                        
+                                        @if ($Kriteria->kode_kriteria != 'KRI-0002' && $Kriteria->kode_kriteria != 'KRI-0003')
                                             <button type="submit" data-modal-target="popup-modal-{{ $Kriteria->id }}"
                                                 data-modal-toggle="popup-modal-{{ $Kriteria->id }}"
                                                 class="bg-red-500 hover:bg-red-600 text-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center"
@@ -425,10 +336,11 @@
                                                         <h3
                                                             class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
                                                             Apakah anda yakin menghapus alternatif ini ? </h3>
-                                                        <form action="{{ route('data-kriteria.destroy', $Kriteria->id) }}"
+                                                        <form action="{{ route('deleteopsi') }}"
                                                             method="POST">
                                                             @csrf
-                                                            @method('DELETE')
+                                                            <input type="hidden" name="id" value="{{$Kriteria->id}}">
+                                                            <input type="hidden" name="kode_kriteria" value="{{$Kriteria->kode_kriteria}}">
                                                             <div class="flex justify-center">
                                                                 <button data-modal-hide="popup-modal" type="submit"
                                                                     class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
@@ -450,9 +362,7 @@
                 @endif
             </table>
         </div>
-        <div class="flex pt-10 justify-end">
-            {{ $kriteria->links('kriteria.pagination') }}
-        </div>
+       
     </div>
     <script>
         setTimeout(function() {

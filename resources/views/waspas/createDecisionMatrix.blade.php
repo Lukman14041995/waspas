@@ -19,25 +19,35 @@
                                 <input type="text" id="alternatif" value="{{ $item->nama_alternatif }}" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
                             </div>
                             @foreach ($kriteria as $kriteriaItem)
-                                @if($kriteriaItem->id == 8 && $item->luas_tanah <= 4999)
+                                @if($kriteriaItem->nama_kriteria == "Luas Tanah" && $item->luas_tanah <= 4999)
                                 <div class="mb-2">
                                     <label for="value_{{ $kriteriaItem->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ $kriteriaItem->nama_kriteria }} : </label>
                                     <input type="text" id="value_{{ $kriteriaItem->id }}" name="value_{{ $item->id }}_{{ $kriteriaItem->id }}" value="5" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" readonly>
                                 </div>
-                                @elseif($kriteriaItem->id == 8 && $item->luas_tanah > 5000)
+                                @elseif($kriteriaItem->nama_kriteria == "Luas Tanah" && $item->luas_tanah > 5000)
                                 <div class="mb-2">
                                     <label for="value_{{ $kriteriaItem->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ $kriteriaItem->nama_kriteria }} : </label>
                                     <input type="text" id="value_{{ $kriteriaItem->id }}" name="value_{{ $item->id }}_{{ $kriteriaItem->id }}" value="10" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" readonly>
                                 </div>
-                                @elseif($kriteriaItem->id == 9)
+                                @elseif($kriteriaItem->nama_kriteria == "No SK")
+                                @if($item->no_sk == '')
                                 <div class="mb-2">
                                     <label for="value_{{ $kriteriaItem->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ $kriteriaItem->nama_kriteria }} : </label>
-                                    <input type="text" id="value_{{ $kriteriaItem->id }}" name="value_{{ $item->id }}_{{ $kriteriaItem->id }}" value="10" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" readonly>
+                                    <input type="text" id="value_{{ $kriteriaItem->id }}" name="value_{{ $item->id }}_{{ $kriteriaItem->id }}" value="0" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" readonly>
                                 </div>
                                 @else
                                 <div class="mb-2">
                                     <label for="value_{{ $kriteriaItem->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ $kriteriaItem->nama_kriteria }} : </label>
-                                    <input type="text" id="value_{{ $kriteriaItem->id }}" name="value_{{ $item->id }}_{{ $kriteriaItem->id }}" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" >
+                                    <input type="text" id="value_{{ $kriteriaItem->id }}" name="value_{{ $item->id }}_{{ $kriteriaItem->id }}" value="10" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" readonly>
+                                </div>
+                                @endif
+                                @else
+                                @php
+                                    $valueKri = App\Models\ValueKriteria::where('kode_alternatif',$item->kode_alternatif)->first();
+                                @endphp
+                                <div class="mb-2">
+                                    <label for="value_{{ $kriteriaItem->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ $kriteriaItem->nama_kriteria }} : {{$item->kode_alternatif}} </label>
+                                    <input type="text" id="value_{{ $kriteriaItem->id }}" name="value_{{ $item->id }}_{{ $kriteriaItem->id }}" value={{$valueKri->skor?? 0}} class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" >
                                 </div>
                                 @endif
                             @endforeach

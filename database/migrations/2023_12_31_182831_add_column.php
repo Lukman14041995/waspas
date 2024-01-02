@@ -11,14 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kriteria', function (Blueprint $table) {
-            $table->id();
-            $table->string('kode_kriteria', 50)->nullable();
-            $table->string('nama_kriteria', 50)->nullable();
-            $table->double('bobot_kriteria')->nullable();
-            $table->string('jenis_kriteria', 50)->nullable();
+        Schema::table('kriteria', function (Blueprint $table) {
             $table->integer('karakter_kriteria')->nullable();
-            $table->timestamps();
         });
     }
 
@@ -27,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kriteria');
+        Schema::table('kriteria', function (Blueprint $table) {
+            //
+        });
     }
 };
