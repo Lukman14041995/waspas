@@ -27,6 +27,10 @@ class Alternatif extends Model
     {
         return $this->hasMany(Anggota::class, 'kode_alternatif');
     }
+    public function hasVKriteria()
+    {
+        return $this->hasMany(ValueKriteria::class, 'kode_alternatif');
+    }
 
     public function isUsed()
     {

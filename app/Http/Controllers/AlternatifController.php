@@ -227,16 +227,23 @@ class AlternatifController extends Controller
         $alternatif->nama_alternatif = $request->get('nama_alternatif');
 
         $alternatif->save();
-        return redirect()->route('data-alternatif.index')
+        return redirect()->route('getdata')
             ->with('success', 'Data Alternatif Berhasil Diupdate');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        Alternatif::find($id)->delete();
-        return redirect()->route('data-alternatif.index')->with('success', 'Data Alternatif Berhasil Dihapus');
+        // dd($request->all());
+        $alternatif = Alternatif::find($id);
+
+        if ($alternatif) {
+            $alternatif->delete();
+            return redirect()->route('getdata')->with('success', 'Data Alternatif Berhasil Dihapus');
+        } else {
+            return redirect()->route('getdata')->with('error', 'Data Alternatif Tidak Ditemukan');
+        }
     }
 }

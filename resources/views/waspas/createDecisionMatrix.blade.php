@@ -43,12 +43,16 @@
                                 @endif
                                 @else
                                 @php
-                                    $valueKri = App\Models\ValueKriteria::where('kode_alternatif',$item->kode_alternatif)->first();
+                                    $valueKri = App\Models\ValueKriteria::where('kode_kriteria',$kriteriaItem->kode_kriteria)->where('kode_alternatif',$item->kode_alternatif)->get();
                                 @endphp
+                                {{-- @dd($valueKri); --}}
+                                @foreach ($valueKri as $items)
                                 <div class="mb-2">
                                     <label for="value_{{ $kriteriaItem->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ $kriteriaItem->nama_kriteria }} : {{$item->kode_alternatif}} </label>
-                                    <input type="text" id="value_{{ $kriteriaItem->id }}" name="value_{{ $item->id }}_{{ $kriteriaItem->id }}" value={{$valueKri->skor?? 0}} class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" >
-                                </div>
+                                    <input type="text" id="value_{{ $kriteriaItem->id }}" name="value_{{ $item->id }}_{{ $kriteriaItem->id }}" value={{$items->skor?? 0}} class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" >
+                                </div>    
+                                @endforeach
+                                
                                 @endif
                             @endforeach
                             <br>
