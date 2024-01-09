@@ -19,17 +19,22 @@ use App\Http\Controllers\ResultController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
-Route::resource('/data-kriteria', KriteriaController::class);
-Route::resource('/data-alternatif', AlternatifController::class);
-Route::resource('/decision-matrix', DecisionMatrixController::class);
-Route::get('/normalisasi', [NormalisasiController::class, 'index'])->name('normalisasi.index');
-Route::get('/score', [ResultController::class, 'index'])->name('score.index');
-Route::delete('/hapus/{id}', [KriteriaController::class, 'hapus'])->name('child-hapus');
-Route::post('/opsi', [KriteriaController::class, 'opsi'])->name('opsi');
-Route::post('/updateopsi', [KriteriaController::class, 'updateopsi'])->name('updateopsi');
-Route::post('/deleteopsi', [KriteriaController::class, 'deleteopsi'])->name('deleteopsi');
-Route::post('/Inputopsi', [KriteriaController::class, 'Inputopsi'])->name('Inputopsi');
-Route::get('/data-kelompok', [AlternatifController::class, 'getdata'])->name('getdata');
+
+Auth::routes();
+Route::group(['middleware' => ['auth']], function () {
+    Route::resource('/data-kriteria', KriteriaController::class);
+    Route::resource('/data-alternatif', AlternatifController::class);
+    Route::resource('/decision-matrix', DecisionMatrixController::class);
+    Route::get('/normalisasi', [NormalisasiController::class, 'index'])->name('normalisasi.index');
+    Route::get('/score', [ResultController::class, 'index'])->name('score.index');
+    Route::delete('/hapus/{id}', [KriteriaController::class, 'hapus'])->name('child-hapus');
+    Route::post('/opsi', [KriteriaController::class, 'opsi'])->name('opsi');
+    Route::post('/updateopsi', [KriteriaController::class, 'updateopsi'])->name('updateopsi');
+    Route::post('/deleteopsi', [KriteriaController::class, 'deleteopsi'])->name('deleteopsi');
+    Route::post('/Inputopsi', [KriteriaController::class, 'Inputopsi'])->name('Inputopsi');
+    Route::get('/data-kelompok', [AlternatifController::class, 'getdata'])->name('getdata');
+});
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

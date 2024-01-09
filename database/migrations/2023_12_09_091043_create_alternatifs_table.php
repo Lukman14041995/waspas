@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('kode_alternatif', 50)->nullable();
             $table->string('no_sk', 50)->nullable();
             $table->string('nama_alternatif', 50)->nullable();
-            $table->integer('luas_tanah', 50)->nullable();
+            $table->integer('luas_tanah')->nullable();
             $table->timestamps();
         });
     }
