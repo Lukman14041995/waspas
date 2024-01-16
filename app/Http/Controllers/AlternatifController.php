@@ -6,9 +6,11 @@ use App\Models\Alternatif;
 use App\Models\Anggota;
 use App\Models\ChildKriteria;
 use App\Models\ValueKriteria;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use DB;
+use Illuminate\Support\Carbon as SupportCarbon;
 
 class AlternatifController extends Controller
 {
@@ -41,12 +43,11 @@ class AlternatifController extends Controller
             ->value('kode_alternatif');
 
         if (!$latestCode) {
-            return 'KEL-0001';
+            return 'KEL-00000000/000001';
         }
 
-        $codeNumber = (int)substr($latestCode, -4);
-        $newCodeNumber = $codeNumber + 1;
-        $newCode = 'KEL-' . str_pad($newCodeNumber, 4, '0', STR_PAD_LEFT);
+        $createdAt = date('Ymd/His');
+        $newCode = 'KEL-' . str_pad($createdAt, 14, '0', STR_PAD_LEFT);
 
         return $newCode;
     }
@@ -240,7 +241,12 @@ class AlternatifController extends Controller
         $alternatif = Alternatif::find($id);
 
         if ($alternatif) {
+            // Hapus record dari tabel 'table_alternatif' berdasarkan $id
             $alternatif->delete();
+
+            // Hapus record dari tabel 'table_anggota' berdasarkan 'kode_alternatif'
+            Anggota::where('kode_alternatif', $alternatif->kode_alternatif)->delete();
+
             return redirect()->route('getdata')->with('success', 'Data Alternatif Berhasil Dihapus');
         } else {
             return redirect()->route('getdata')->with('error', 'Data Alternatif Tidak Ditemukan');

@@ -179,6 +179,9 @@
                         ID
                     </th>
                     <th scope="col" class="px-6 py-3">
+                        Kode Kelompok
+                    </th>
+                    <th scope="col" class="px-6 py-3">
                         No SK
                     </th>
                     <th scope="col" class="px-6 py-3">
@@ -213,6 +216,9 @@
                     </td>
                     <td class="text-center py-4">
                         {{ $Alternatif->kode_alternatif }}
+                    </td>
+                    <td class="text-center py-4">
+                        {{ $Alternatif->no_sk }}
                     </td>
                     <td class="text-center py-4">
                         {{ $Alternatif->nama_alternatif }}
