@@ -395,6 +395,8 @@
             // Tambahkan event listener untuk tombol "Remove"
             removeButton.addEventListener('click', function() {
                 // Hapus entri terkait ketika tombol "Remove" ditekan
+                // Hapus entri terkait ketika tombol "Remove" ditekan
+                // Hapus entri terkait ketika tombol "Remove" ditekan
                 newInputContainer.remove();
 
                 // Perbarui total luas tanah setelah menghapus entri
